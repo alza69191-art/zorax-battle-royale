@@ -102,7 +102,7 @@ function update(dt){
  if(move.lengthSq()>0){move.normalize().multiplyScalar(speed*dt);const nx=THREE.MathUtils.clamp(player.position.x+move.x,-99,99),nz=THREE.MathUtils.clamp(player.position.z+move.z,-99,99);if(!blocked(nx,player.position.z))player.position.x=nx;if(!blocked(player.position.x,nz))player.position.z=nz;}
  velocityY-=18*dt;player.position.y+=velocityY*dt;if(player.position.y<=0){player.position.y=0;velocityY=0;onGround=true;}
  player.rotation.y=yaw;gun.rotation.x=THREE.MathUtils.clamp(pitch,-.3,.3);
- const offset=new THREE.Vector3(Math.sin(yaw)*7,3.4+pitch*2,Math.cos(yaw)*7);const desired=player.position.clone().add(offset);camera.position.lerp(desired,1-Math.pow(.001,dt));const look=player.position.clone().add(new THREE.Vector3(0,1.5,0));camera.lookAt(look);
+ const offset=new THREE.Vector3(Math.sin(yaw)*7,3.4+pitch*2,Math.cos(yaw)*7);const desired=player.position.clone().add(offset);camera.position.lerp(desired,1-Math.pow(.001,dt));const aimPoint=player.position.clone().add(new THREE.Vector3(-Math.sin(yaw)*35,1.5+pitch*35,-Math.cos(yaw)*35));camera.lookAt(aimPoint);
 }
 function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.04);update(dt);renderer.render(scene,camera);}
 animate();
